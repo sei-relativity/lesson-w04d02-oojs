@@ -322,8 +322,6 @@ Create a "getter" and "setter" methods for retrieving and updating `artistName`,
 - What is `new `?
 - How are the last two related?
 
-## Bonus Exercise / Homework: [Geometry](https://github.com/wdi-infinity/js_geometry)
-
 ## Additional Reading
 
 * [MDN Documentation on Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
