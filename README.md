@@ -1,4 +1,4 @@
-# Object Oriented JavaScript and Classes
+# Object Oriented JavaScript, Classes and Modules
 
 ## Learning Objectives
 
@@ -6,6 +6,13 @@
   - Describe the role of ES2015 Classes and how they work 
   - Use the `new` keyword to create objects with shared properties
   - Explain the `this` keyword and its scope.
+  - Explain `export` and `import` for building reusable modules.
+
+## Preparation
+
+1. Fork and clone
+2. Create a new branch, `training`, for your work and change into it.
+3. Create a new `code` directory and `cd` into it.
 
 ## Opening
 
@@ -202,12 +209,12 @@ class Person {
   }
   // We define any methods accessible to an instance outside of the constructor
   speak() {
-    return "Hello! I'm " + this.name;
+    return `Hello! I'm ${this.name}`;
   }
 }
 
-const andy = new Person("Usman");
-andy.speak(); // "Hello, I'm Usman"
+const usman = new Person("Usman");
+usman.speak(); // "Hello, I'm Usman"
 ```
 
 Notice the use of `this` keyword. Here's why we write classes this way...
@@ -242,24 +249,82 @@ Unlike object notation, you do not need to use commas when separating class meth
 
 - [Read more about the `this` keyword](https://www.quirksmode.org/js/this.html)
 
-### Another Example to Try
+### Another Example to Try:
 
 ```js
 class Animal {
-  constructor(type, age, sound) {
+  constructor(name, type, age, sound) {
+    this.name = name;
     this.type = type;
     this.age = age;
     this.sound = sound;
   }
+
   getOlder() {
     this.age += 1;
     console.log(this.age);
   }
+
   makeSound() {
     return `${this.sound}! Hello, I'm a ${this.type}. And I'm ${this.age} years old.`;
   }
 }
 ```
+
+### Sub classing with `extends`
+
+The `extends` keyword is used in classes to create a class as a child of another class. So let's use it to create a `Dog` class that extends the `Animal` class.
+
+```js
+class Dog extends Animal {
+  constructor(name, age) {
+    super(name, 'Belgian Malinois', age, 'Barks'); // call the super class constructor and pass in required parameters
+  }
+
+  makeSound() {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+const bear = new Dog('Bear');
+bear.makeSound(); // Bear barks.
+```
+
+**You Do:** Create a `Cat` class that extends the `Animal` class.
+
+
+## Modules: Import & Export
+
+The `export` statement is used when creating JavaScript modules to export **functions**, **objects**, or **primitive values** from the module so they can be used by other programs with the `import` statement.
+
+The static `import` statement is used to import bindings which are exported by another module. 
+
+The exported and imported modules are in `strict mode` whether you declare them as such or not.
+
+**Export Example:**
+
+```js
+const getRandom = () => Math.floor(Math.random() * 100);
+
+export { getRandom };
+```
+
+**Import Example:**
+
+```js
+import { getRandom } from './helper.js';
+```
+
+It is important to note the following:
+
+- You need to include the script in question in your HTML with a `<script>` element of `type="module"`, so that it gets recognised as a module and dealt with appropriately.
+- You can't run JS modules via a `file://` URL — you'll get [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) errors. You need to run it via an HTTP server.
+
+### Code Refactoring
+
+Let's take the `Animal`, `Dog`, and `Cat` classes and refactor them into separate modules.
+
+## Labs
 
 ### Make an ATM - Lab (20 minutes)
 
@@ -313,6 +378,81 @@ Create a "getter" and "setter" methods for retrieving and updating `artistName`,
 
 > 15 minutes exercise. 5 minutes review.
 
+### ES6 Classes Body Shop - Lab (30 minutes)
+
+We need a prototype for a car. Can you help us with your sweet JavaScript skills?
+
+#### Phase I
+
+Your `Car` should meet the following requirements:
+
+* Must have the following constructor parameters:
+  * `make`
+  * `model`
+  * `year`
+  * `color`
+  * `seats`
+* By default, a new `Car` should have the following values **initialized** in the constructor:
+  * `previousOwners`
+    * should be initialized to an empty array, `[]`.
+  * `owner`
+    * should be initialized to 'manufacturer'.
+  * `running`
+    * should be initialized to `false`.
+* We should be able to do the following with our car:
+  * `Car.sell(newOwner)`
+    * We should able to sell a car to someone, which should update the `owner` and `previousOwners` array.
+    * This takes 1 string parameter for the new owner's name.
+    * The old owner should be pushed to the end of the `previousOwners` array. 
+    * The new `owner` should be set to the parameter passed in.
+  * `Car.paint(newColor)`
+    * We should be able to paint the car a new color
+    * This takes 1 string parameter for the new color's name
+    * This should update the color of the car to the new color.
+
+#### Phase II
+
+Implement and test the following methods:
+
+* `Car.start()`
+  * Should change the running value of the car to `true`.
+* `Car.off()`
+  * Should change the running value to `false`.
+* `Car.driveTo(destination)`
+  * Should `console.log` `"driving to <destination>"`, but only if the car is running.
+  * Should return true if it is successful and false if it is not.
+* `Car.park()`
+  * Only if the car is not running, you should console.log `parked!!`.
+  * Should return true if it is successful and false if it is not.
+
+
+#### Phase III
+
+Add the following property as a parameter to the **constructor**:
+
+* `passengers`
+  * Should be optional and default to an empty array if not specified.
+
+Implement the following methods:
+
+* `Car.pickUp(name)`
+  * Should take a `name` and `console.log` that you are `"driving to pick up <name>"`, but only if the `car` is running AND there are enough seats available.
+  * Should also update the `passengers` array to include the new passenger.
+  * Should also return true on success and false on failure.
+  * The newly picked up passenger should be `pushed` to the end of the array.
+* `Car.dropOff(name)`
+  * Should take a `name` and remove them from the `passengers` array, but only if they are in the array.
+  * Should also only drop them off if the car is `on`.
+  * Should also output `"driving to drop off <name>"` and return true on success and false on failure.
+* `Car.passengerCount()`
+  * Should return the number (integer) of passengers currently in the car.
+
+**NOTE:** When deciding if there are enough seats available, remember that the driver takes up 1 seat, but is NOT counted as a passenger in passengerCount(). You can assume the driver is the owner.
+
+### Gladiator Arena - Lab (30 Minutes)
+
+Fork and clone the [Gladiator Arena Lab](https://github.com/sei-eternity/js-gladiator) repo to find the lab requirements and to get started coding.
+
 -------
 
 ## Closing / Questions
@@ -329,3 +469,5 @@ Create a "getter" and "setter" methods for retrieving and updating `artistName`,
 * [Getters, Setters, and Organizing Responsibility in Javascript](http://raganwald.com/2015/08/24/ready-get-set-go.html)
 * [Static Members in ES6](http://odetocode.com/blogs/scott/archive/2015/02/02/static-members-in-es6.aspx)
 * [Lesson: JS View Classes](https://github.com/ga-wdi-lessons/js-view-classes)
+* [MDN: export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)
+* [MDN: import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
