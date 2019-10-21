@@ -52,4 +52,11 @@ userChecking.showBalance();
 console.log(userChecking.transactions);
 
 /////     RecordAlbums class     \\\\\
-const album = new RecordAlbums();
+const album = new RecordAlbums(
+  "MJ",
+  "Red Album",
+  ["cool", "day", "night", "morning", "midnight"],
+  "night"
+);
+album.nextSong();
+album.previousSong();
