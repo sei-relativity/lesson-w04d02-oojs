@@ -19,7 +19,7 @@
 We've already gotten exposure to JavaScript objects using object literal notation (i.e., the curly brackets). You might have created a Person object like this:
 
 ```js
-let person = {
+const person = {
   firstName: 'Usman',
   lastName: 'Bashir',
   sayHi: function() {
@@ -31,12 +31,12 @@ let person = {
 What's nice about the above code snippet? How does it compare to this...
 
 ```js
-  let firstName = 'Usman';
-  let lastName = 'Bashir';
+const firstName = 'Usman';
+const lastName = 'Bashir';
 
-  function sayHi(){
-    console.log("Hi, I'm Usman");
-  }
+function sayHi(){
+  console.log("Hi, I'm Usman");
+}
 ```
 
 <details>
@@ -81,7 +81,7 @@ OOP becomes **very** important as our front-end and back-end code grows in compl
 So far, we've had to make our objects 'by hand' (i.e. using object literals)...
 
 ```js
-var celica = {
+const celica = {
   model: 'Toy-Yoda Celica',
   color: 'limegreen',
   fuel: 100,
@@ -94,7 +94,7 @@ var celica = {
   }
 }
 
-var civic = {
+const civic = {
   model: 'Honda Civic',
   color: 'lemonchiffon',
   fuel: 100,
@@ -123,7 +123,7 @@ Define a function `makeCar` that takes two parameters - `model` and `color` - an
 
 ```js
 // This should return a car object just like the previous example
-var celica = makeCar("Toy-Yoda Celica", "limegreen");
+const celica = makeCar("Toy-Yoda Celica", "limegreen");
 ```
 
 <details>
@@ -449,9 +449,9 @@ Implement the following methods:
 
 **NOTE:** When deciding if there are enough seats available, remember that the driver takes up 1 seat, but is NOT counted as a passenger in passengerCount(). You can assume the driver is the owner.
 
-### Gladiator Arena - Lab (30 Minutes)
+### Gladiator Arena - Homework
 
-Fork and clone the [Gladiator Arena Lab](https://github.com/sei-eternity/js-gladiator) repo to find the lab requirements and to get started coding.
+Fork and clone the [Gladiator Arena Homework](https://github.com/sei-relativity/hw-w04d02-js-gladiator) repo to find the Homework requirements and to get started coding.
 
 -------
 
