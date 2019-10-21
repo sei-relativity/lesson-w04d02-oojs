@@ -60,3 +60,5 @@ const album = new RecordAlbums(
 );
 album.nextSong();
 album.previousSong();
+album.setArtistName("50 cent");
+console.log(album.getArtistName());

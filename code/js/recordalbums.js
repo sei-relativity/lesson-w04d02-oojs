@@ -22,22 +22,22 @@ export default class RecordAlbums {
         : this.songs[nextSoInd - 1]
     );
   }
-  // set artistName(artistName) {
-  //   this.artistName = artistName;
-  // }
-  // get artistName() {
-  //   return this.artistName;
-  // }
-  // set albumtName(albumName) {
-  //   this.albumName = albumName;
-  // }
-  // get albumName() {
-  //   return this.albumtName;
-  // }
-  // set songs(songs) {
-  //   this.songs = songs;
-  // }
-  // get songs() {
-  //   return this.songs;
-  // }
+  setArtistName(artistName) {
+    this.artistName = artistName;
+  }
+  getArtistName() {
+    return this.artistName;
+  }
+  setAlbumtName(albumName) {
+    this.albumName = albumName;
+  }
+  getAlbumName() {
+    return this.albumtName;
+  }
+  setSongs(songs) {
+    this.songs = songs;
+  }
+  getSongs() {
+    return this.songs;
+  }
 }
