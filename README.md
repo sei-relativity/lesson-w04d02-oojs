@@ -454,8 +454,8 @@ Implement the following methods:
 Fork and clone the [Gladiator Arena Homework](https://github.com/sei-relativity/hw-w04d02-js-gladiator) repo to find the Homework requirements and to get started coding.
 
 -------
-
-## Closing / Questions
+  
+# Closing / Questions
 
 - What are the benefits to using an OOP approach to programming?
 - What is a class?
