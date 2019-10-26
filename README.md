@@ -2,11 +2,11 @@
 
 ## Learning Objectives
 
-  - Explain the importance of OOJS 
-  - Describe the role of ES2015 Classes and how they work 
-  - Use the `new` keyword to create objects with shared properties
-  - Explain the `this` keyword and its scope.
-  - Explain `export` and `import` for building reusable modules.
+- Explain the importance of OOJS
+- Describe the role of ES2015 Classes and how they work
+- Use the `new` keyword to create objects with shared properties
+- Explain the `this` keyword and its scope.
+- Explain `export` and `import` for building reusable modules.
 
 ## Preparation
 
@@ -20,21 +20,21 @@ We've already gotten exposure to JavaScript objects using object literal notatio
 
 ```js
 const person = {
-  firstName: 'Usman',
-  lastName: 'Bashir',
+  firstName: "Usman",
+  lastName: "Bashir",
   sayHi: function() {
     console.log("Hi, I'm Usman");
   }
-}
+};
 ```
 
 What's nice about the above code snippet? How does it compare to this...
 
 ```js
-const firstName = 'Usman';
-const lastName = 'Bashir';
+const firstName = "Usman";
+const lastName = "Bashir";
 
-function sayHi(){
+function sayHi() {
   console.log("Hi, I'm Usman");
 }
 ```
@@ -45,36 +45,37 @@ function sayHi(){
   </summary >
 </details>
 
-> * Related properties and methods are packaged together. 
-> * Fewer global variables. 
-> * Readability.
-
+> - Related properties and methods are packaged together.
+> - Fewer global variables.
+> - Readability.
 
 #### How have we been writing code up until this point?
 
-We have been writing **procedural code**, which basically means we are writing and executing code as we need it. We'll define some variables and functions here, maybe some event listeners there. We end up with a lot of separate pieces that contribute to the overall functionality of an application. This goes against the idea of keeping our code DRY, short for _Don't Repeat Yourself_. 
-  
+We have been writing **procedural code**, which basically means we are writing and executing code as we need it. We'll define some variables and functions here, maybe some event listeners there. We end up with a lot of separate pieces that contribute to the overall functionality of an application. This goes against the idea of keeping our code DRY, short for _Don't Repeat Yourself_.
+
 What do we do when we want to go beyond reusing a value which may just be a primitive or an object containing some key/value data? What if we want to clone an object that has _behaviors_ we seek to reuse?
 
 For example, say we are developing a revamped version of the video game Street Fighter. Each character may have their own unique fighting tricks, but in general, all character objects should have at least the same kick and punch abilities. With DRY in mind, when we develop a new fighter object we know we would want to avoid recreating any of these general behaviors and instead code a solution that clones them. We can most easily solve this problem by following patterns driven by Object Oriented Programming.
 
 #### What is an object in programming?
 
-  An object encapsulates related data and behavior in an organized structure.
+An object encapsulates related data and behavior in an organized structure.
 
 #### Why might we use an OOP approach to programming?
 
 Object-oriented programming(OOP) provides us with opportunities to clean up our procedural code and model it more closely to resemble the real world.
 
 OOP helps us to achieve the following...
-  * **Abstraction:** Determining essential features 
-  * **Encapsulation:** Containing and protecting methods and properties 
-  * **Modularity:** Breaking down a program into smaller sub - programs
+
+- **Abstraction:** Determining essential features
+- **Encapsulation:** Containing and protecting methods and properties
+- **Modularity:** Breaking down a program into smaller sub - programs
 
 OOP becomes **very** important as our front-end and back-end code grows in complexity. Even a simple app will have lots of code on the front-end to do things like...
-  * Send requests to a backend to fetch / update / destroy data 
-  * Update the state of the page as data changes 
-  * Respond to events like clicking buttons
+
+- Send requests to a backend to fetch / update / destroy data
+- Update the state of the page as data changes
+- Respond to events like clicking buttons
 
 ### Creating Objects
 
@@ -82,30 +83,30 @@ So far, we've had to make our objects 'by hand' (i.e. using object literals)...
 
 ```js
 const celica = {
-  model: 'Toy-Yoda Celica',
-  color: 'limegreen',
+  model: "Toy-Yoda Celica",
+  color: "limegreen",
   fuel: 100,
   drive: function() {
     this.fuel--;
-    return 'Vroom!';
+    return "Vroom!";
   },
   refuel: function() {
     this.fuel = 100;
   }
-}
+};
 
 const civic = {
-  model: 'Honda Civic',
-  color: 'lemonchiffon',
+  model: "Honda Civic",
+  color: "lemonchiffon",
   fuel: 100,
   drive: function() {
     this.fuel--;
-    return 'Vroom!';
+    return "Vroom!";
   },
   refuel: function() {
     this.fuel = 100;
   }
-}
+};
 ```
 
 Even though we're technically using objects to organize our code, we can see a noticeable amount of duplication. Just imagine if we needed a hundred cars in our app! Our code would certainly not be considered "DRY".
@@ -130,23 +131,23 @@ const celica = makeCar("Toy-Yoda Celica", "limegreen");
   <summary> <strong>Solution...</strong></summary >
 
 ```js
-  // ES5
-  function makeCar(model, color){
-    return {
-      model: model,
-      color: color
-    }
-  }
+// ES5
+function makeCar(model, color) {
+  return {
+    model: model,
+    color: color
+  };
+}
 ```
 
 ```js
-  // ES6
-  let makeCar = (model, color) => {
-    return {
-      model, //ES6 shorthand for model: model
-      color  //ES6 shorthand for color: color
-    }
-  }
+// ES6
+let makeCar = (model, color) => {
+  return {
+    model, //ES6 shorthand for model: model
+    color //ES6 shorthand for color: color
+  };
+};
 ```
 
 </details>
@@ -175,16 +176,16 @@ Let's build out the following `Car` class:
 
 ```js
 class Car {
-  constructor(model, color){
+  constructor(model, color) {
     this.model = model;
     this.color = color;
     this.fuel = 100;
   }
-  drive(){
+  drive() {
     this.fuel--;
     return "Vroom!";
   }
-  refuel(){
+  refuel() {
     this.fuel = 100;
   }
 }
@@ -203,7 +204,7 @@ Classes work a lot like the `makeCar` function we just created, but they're supp
 class Person {
   // We use the constructor method to initialize properties for a class instance.
   // It takes whatever arguments we want to pass into an instance.
-  constructor(initialName){
+  constructor(initialName) {
     this.name = initialName;
     this.species = "Homo Sapiens";
   }
@@ -221,9 +222,9 @@ Notice the use of `this` keyword. Here's why we write classes this way...
 
 When we generate a class instance using `new`, JavaScript will automatically...
 
-  1. Create a new, empty object for us  
-  2. Generate a context for that object (`this` -> the new object)
-  3. Return the object  
+1. Create a new, empty object for us
+2. Generate a context for that object (`this` -> the new object)
+3. Return the object
 
 #### Where are the Commas?
 
@@ -278,7 +279,7 @@ The `extends` keyword is used in classes to create a class as a child of another
 ```js
 class Dog extends Animal {
   constructor(name, age) {
-    super(name, 'Belgian Malinois', age, 'Barks'); // call the super class constructor and pass in required parameters
+    super(name, "Belgian Malinois", age, "Barks"); // call the super class constructor and pass in required parameters
   }
 
   makeSound() {
@@ -286,18 +287,17 @@ class Dog extends Animal {
   }
 }
 
-const bear = new Dog('Bear');
+const bear = new Dog("Bear");
 bear.makeSound(); // Bear barks.
 ```
 
 **You Do:** Create a `Cat` class that extends the `Animal` class.
 
-
 ## Modules: Import & Export
 
 The `export` statement is used when creating JavaScript modules to export **functions**, **objects**, or **primitive values** from the module so they can be used by other programs with the `import` statement.
 
-The static `import` statement is used to import bindings which are exported by another module. 
+The static `import` statement is used to import bindings which are exported by another module.
 
 The exported and imported modules are in `strict mode` whether you declare them as such or not.
 
@@ -312,7 +312,7 @@ export { getRandom };
 **Import Example:**
 
 ```js
-import { getRandom } from './helper.js';
+import { getRandom } from "./helper.js";
 ```
 
 It is important to note the following:
@@ -331,13 +331,15 @@ Let's take the `Animal`, `Dog`, and `Cat` classes and refactor them into separat
 For this exercise you will be creating an ATM class.
 
 It will have the following properties...
-* `type` (e.g., "checking"), which should be determined by some input
-* `money`, which should start out as `0`
+
+- `type` (e.g., "checking"), which should be determined by some input
+- `money`, which should start out as `0`
 
 It should have the following methods...
-* `withdraw`, which should decrease the amount of money by some input
-* `deposit`, which should increase the amount of money by some input
-* `showBalance`, which should print the amount of money in the bank to the console.
+
+- `withdraw`, which should decrease the amount of money by some input
+- `deposit`, which should increase the amount of money by some input
+- `showBalance`, which should print the amount of money in the bank to the console.
 
 The `Atm` class has a `transactionHistory` property which keeps track of the withdrawals and deposits made to the account.
 
@@ -374,7 +376,7 @@ Create a "getter" and "setter" methods for retrieving and updating `artistName`,
 
 #### References
 
-* Read the "Get & Set" section [here](https://coryrylan.com/blog/javascript-es6-class-syntax).
+- Read the "Get & Set" section [here](https://coryrylan.com/blog/javascript-es6-class-syntax).
 
 > 15 minutes exercise. 5 minutes review.
 
@@ -386,66 +388,65 @@ We need a prototype for a car. Can you help us with your sweet JavaScript skills
 
 Your `Car` should meet the following requirements:
 
-* Must have the following constructor parameters:
-  * `make`
-  * `model`
-  * `year`
-  * `color`
-  * `seats`
-* By default, a new `Car` should have the following values **initialized** in the constructor:
-  * `previousOwners`
-    * should be initialized to an empty array, `[]`.
-  * `owner`
-    * should be initialized to 'manufacturer'.
-  * `running`
-    * should be initialized to `false`.
-* We should be able to do the following with our car:
-  * `Car.sell(newOwner)`
-    * We should able to sell a car to someone, which should update the `owner` and `previousOwners` array.
-    * This takes 1 string parameter for the new owner's name.
-    * The old owner should be pushed to the end of the `previousOwners` array. 
-    * The new `owner` should be set to the parameter passed in.
-  * `Car.paint(newColor)`
-    * We should be able to paint the car a new color
-    * This takes 1 string parameter for the new color's name
-    * This should update the color of the car to the new color.
+- Must have the following constructor parameters:
+  - `make`
+  - `model`
+  - `year`
+  - `color`
+  - `seats`
+- By default, a new `Car` should have the following values **initialized** in the constructor:
+  - `previousOwners`
+    - should be initialized to an empty array, `[]`.
+  - `owner`
+    - should be initialized to 'manufacturer'.
+  - `running`
+    - should be initialized to `false`.
+- We should be able to do the following with our car:
+  - `Car.sell(newOwner)`
+    - We should able to sell a car to someone, which should update the `owner` and `previousOwners` array.
+    - This takes 1 string parameter for the new owner's name.
+    - The old owner should be pushed to the end of the `previousOwners` array.
+    - The new `owner` should be set to the parameter passed in.
+  - `Car.paint(newColor)`
+    - We should be able to paint the car a new color
+    - This takes 1 string parameter for the new color's name
+    - This should update the color of the car to the new color.
 
 #### Phase II
 
 Implement and test the following methods:
 
-* `Car.start()`
-  * Should change the running value of the car to `true`.
-* `Car.off()`
-  * Should change the running value to `false`.
-* `Car.driveTo(destination)`
-  * Should `console.log` `"driving to <destination>"`, but only if the car is running.
-  * Should return true if it is successful and false if it is not.
-* `Car.park()`
-  * Only if the car is not running, you should console.log `parked!!`.
-  * Should return true if it is successful and false if it is not.
-
+- `Car.start()`
+  - Should change the running value of the car to `true`.
+- `Car.off()`
+  - Should change the running value to `false`.
+- `Car.driveTo(destination)`
+  - Should `console.log` `"driving to <destination>"`, but only if the car is running.
+  - Should return true if it is successful and false if it is not.
+- `Car.park()`
+  - Only if the car is not running, you should console.log `parked!!`.
+  - Should return true if it is successful and false if it is not.
 
 #### Phase III
 
 Add the following property as a parameter to the **constructor**:
 
-* `passengers`
-  * Should be optional and default to an empty array if not specified.
+- `passengers`
+  - Should be optional and default to an empty array if not specified.
 
 Implement the following methods:
 
-* `Car.pickUp(name)`
-  * Should take a `name` and `console.log` that you are `"driving to pick up <name>"`, but only if the `car` is running AND there are enough seats available.
-  * Should also update the `passengers` array to include the new passenger.
-  * Should also return true on success and false on failure.
-  * The newly picked up passenger should be `pushed` to the end of the array.
-* `Car.dropOff(name)`
-  * Should take a `name` and remove them from the `passengers` array, but only if they are in the array.
-  * Should also only drop them off if the car is `on`.
-  * Should also output `"driving to drop off <name>"` and return true on success and false on failure.
-* `Car.passengerCount()`
-  * Should return the number (integer) of passengers currently in the car.
+- `Car.pickUp(name)`
+  - Should take a `name` and `console.log` that you are `"driving to pick up <name>"`, but only if the `car` is running AND there are enough seats available.
+  - Should also update the `passengers` array to include the new passenger.
+  - Should also return true on success and false on failure.
+  - The newly picked up passenger should be `pushed` to the end of the array.
+- `Car.dropOff(name)`
+  - Should take a `name` and remove them from the `passengers` array, but only if they are in the array.
+  - Should also only drop them off if the car is `on`.
+  - Should also output `"driving to drop off <name>"` and return true on success and false on failure.
+- `Car.passengerCount()`
+  - Should return the number (integer) of passengers currently in the car.
 
 **NOTE:** When deciding if there are enough seats available, remember that the driver takes up 1 seat, but is NOT counted as a passenger in passengerCount(). You can assume the driver is the owner.
 
@@ -453,21 +454,21 @@ Implement the following methods:
 
 Fork and clone the [Gladiator Arena Homework](https://github.com/sei-relativity/hw-w04d02-js-gladiator) repo to find the Homework requirements and to get started coding.
 
--------
+---
 
 ## Closing / Questions
 
 - What are the benefits to using an OOP approach to programming?
 - What is a class?
-- What is `new `?
+- What is `new`?
 - How are the last two related?
 
 ## Additional Reading
 
-* [MDN Documentation on Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
-* [Introduction to Javascript ES6 Classes](https://strongloop.com/strongblog/an-introduction-to-javascript-es6-classes/)
-* [Getters, Setters, and Organizing Responsibility in Javascript](http://raganwald.com/2015/08/24/ready-get-set-go.html)
-* [Static Members in ES6](http://odetocode.com/blogs/scott/archive/2015/02/02/static-members-in-es6.aspx)
-* [Lesson: JS View Classes](https://github.com/ga-wdi-lessons/js-view-classes)
-* [MDN: export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)
-* [MDN: import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+- [MDN Documentation on Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+- [Introduction to Javascript ES6 Classes](https://strongloop.com/strongblog/an-introduction-to-javascript-es6-classes/)
+- [Getters, Setters, and Organizing Responsibility in Javascript](http://raganwald.com/2015/08/24/ready-get-set-go.html)
+- [Static Members in ES6](http://odetocode.com/blogs/scott/archive/2015/02/02/static-members-in-es6.aspx)
+- [Lesson: JS View Classes](https://github.com/ga-wdi-lessons/js-view-classes)
+- [MDN: export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)
+- [MDN: import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
